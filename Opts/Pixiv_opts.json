@@ -1,0 +1,120 @@
+{
+	"keyword": {
+		"query_key": "word",
+		"config_key": "keyword"
+	},
+	
+  "tag_mode": {
+		"query_key": "s_mode",
+		"config_key": "tag_mode",
+		"correspondence": {
+			"tag": "s_tag",
+			"full": "s_tag_full",
+			"tc": "s_tc"
+		}
+  },
+
+  "order_premium": {
+		"query_key": "order",
+		"config_key": "order",
+		"correspondence": {
+			"newest": "date_d",
+			"oldest": "date",
+			"popular_all": "popular_d",
+			"popular_male": "popular_male_d",
+			"popular_female": "popular_female_d"
+		}
+  },
+
+  "order_not_premium": {
+    "query_key": "order",
+		"config_key": "order",
+		"correspondence": {
+			"newest": "date_d",
+			"oldest": "date"
+		}
+  },
+
+  "type": {
+		"query_key": "type",
+		"config_key": "type",
+		"correspondence": {
+			"illustration": "illust",
+			"manga": "manga",
+			"ugoira": "ugoira"
+		}
+  },
+
+  "tool": {
+		"query_key": "tool",
+		"config_key": "tool",
+		"correspondence": {
+			"sai": "SAI",
+			"photoshop": "Photoshop",
+			"CSP": "CLIP STUDIO PAINT",
+			"illust": "IllustStudio",
+			"comic": "ComicStudio"
+		}
+  },
+	
+	"ratio": {
+		"query_key": "ratio",
+		"config_key": "ratio",
+		"correspondence": {
+			"horizontal": 0.5,
+			"vertical": -0.5,
+			"square": 0
+		}
+	},
+	
+	"mode": {
+		"query_key": "mode",
+		"config_key": "mode",
+		"correspondence": {
+			"general": "safe",
+			"r18": "r18"
+		}
+	},
+	
+	"min_width": {
+		"query_key": "wlt",
+		"config_key": "min_width"
+	},
+	
+	"max_width": {
+		"query_key": "wgt",
+		"config_key": "max_width"
+	},
+	
+	"min_height": {
+		"query_key": "hlt",
+		"config_key": "min_height"
+	},
+	
+	"max_height": {
+		"query_key": "hgt",
+		"config_key": "max_height"
+	},
+	
+	"min_bookmark": {
+		"query_key": "blt",
+		"config_key": "min_bookmark"
+	},
+	
+	"max_bookmark": {
+		"query_key": "bgt",
+		"config_key": "max_bookmark"
+	},
+	
+	"start_time": {
+		"query_key": "scd",
+		"config_key": "start_time",
+		"format": "%Y-%m-%d"
+	},
+	
+	"end_time": {
+		"query_key": "ecd",
+		"config_key": "end_time",
+		"format": "%Y-%m-%d"
+	}
+}
