@@ -1,9 +1,27 @@
-# Explanation of Options
-Use `null` to ignore the option.
-## Pixiv.json
+# Pixiv Crawler
 
-The correspondence is stored in Opts/Pixiv_opts.json.
+Crawls pictures from the site. Supports a range of custom options, including premium-only options.
 
+Referred to from https://github.com/leniumC/pixiv-crawler.
+
+## Dependencies
+
+pip needed:
+
+- requests[socks]
+- beautifulsoup4
+- lxml
+- python-dateutil
+
+## Running
+
+```pyhon
+python3 main.py
+```
+
+## opts.json
+
+The correspondence is stored in opts.json. Use `null` to ignore the option.
 ##### keyword
 
 - Specifies the keyword.
@@ -26,7 +44,7 @@ The correspondence is stored in Opts/Pixiv_opts.json.
 - 'popular_male': Sort with popularity (male). Will set order to 'popular_male_d'. **Premium only.**
 - 'popular_female': Sort with popularity (female). Will set order to 'popular_female_d'. **Premium only.**
 
-#####type
+##### type
 
 - Specifies if illustration/manga/ugoira will be included. Available in "Search Tools".
 - Corresponds to 'type' in query.
@@ -35,7 +53,7 @@ The correspondence is stored in Opts/Pixiv_opts.json.
 - 'manga': include manga only. Will set type to 'manga'.
 - 'ugoira': include ugoira (moving illustrations) only. Will set type to 'ugoira'. **Currently not supported. Will NOT be downloaded.**
 
-#####tool
+##### tool
 
 - Specifies the tool used to create the work: SAI, Photoshop, CLIP STUDIO PAINT, IllustStudio, ComicStudio. Available in "Search Tools".
 - Corresponds to 'tool' in query.
@@ -46,7 +64,7 @@ The correspondence is stored in Opts/Pixiv_opts.json.
 - 'illust': IllustStudio. Will set 'tool' to 'IllustStudio'.
 - 'comic': ComicStudio. Will set 'tool' to 'ComicStudio'.
 
-#####ratio
+##### ratio
 
 - Specifies the ratio of the work: horizontal, vertical, square. Available in "Search Tools".
 - Corresponds to 'ratio' in query.
@@ -63,27 +81,27 @@ The correspondence is stored in Opts/Pixiv_opts.json.
 - 'general': General (safe) works will be included. Will set 'mode' to 'safe'.
 - 'r18': r18 (nsfw) works will be included. Will set 'mode' to 'r18'.
 
-#####min_width
+##### min_width
 
 - Specifies the min width of the works. Available in "Search Tools" but the option there is imprecise.
 - Corresponds to 'wlt' in query.
 
-#####max_width
+##### max_width
 
 - Specifies the max width of the works. Available in "Search Tools" but the option there is imprecise.
 - Corresponds to 'wgt' in query.
 
-#####min_height
+##### min_height
 
 - Specifies the min height of the works. Available in "Search Tools" but the option there is imprecise.
 - Corresponds to 'hlt' in query.
 
-#####max_height
+##### max_height
 
 - Specifies the max height of the works. Available in "Search Tools" but the option there is imprecise.
 - Corresponds to 'hgt' in query.
 
-#####min_bookmark
+##### min_bookmark
 
 - Specifies the minimum bookmarks that will be included.
 - **Premium members are able to filter by bookmarks (from the server side). If `premium` is set to true, this functionality will be used; if not, a client side filter would be needed, and the number of works fetched may be fewer than expected.**
@@ -98,7 +116,7 @@ The correspondence is stored in Opts/Pixiv_opts.json.
 
 - Corresponds to 'bgt' in query. **Premium only.**
 
-#####start_time
+##### start_time
 
 - Specifies the start time of the works.
 
@@ -110,7 +128,7 @@ The correspondence is stored in Opts/Pixiv_opts.json.
 - 'Xy': X years ago.
 - The above four can be combined, and can be used more than once.
 
-#####end_time
+##### end_time
 
 - Specifies the end time of the works.
 
@@ -122,12 +140,12 @@ The correspondence is stored in Opts/Pixiv_opts.json.
 - 'Xy': X years ago.
 - The above four can be combined, and can be used more than once.
 
-#####start_page
+##### start_page
 
 - Specifies the start page for searching.
 - If set to null, will default at page 1.
 
-#####end_page
+##### end_page
 
 - Specifies the end page for searching.
 - If set to null, will default at page 5.
@@ -137,22 +155,22 @@ The correspondence is stored in Opts/Pixiv_opts.json.
 - Specifies if multi-image works will be downloaded.
 - If set to null, will default to false.
 
-#####proxy
+##### proxy
 
 - boolean value specifying whether a socks 5 proxy will be used.
 - If set to null, proxy will not be used.
 
-#####premium
+##### premium
 
 - boolean value specifying whether the user is a Pixiv Premium member. Premium member can use "Sort by popularity" and "Filter by bookmarks".
 - If set to null, the user will be assumed not to have premium.
 
-#####email
+##### email
 
 - Login email for the user.
 - **Cannot be blank or null.**
 
-#####password
+##### password
 
 - Login password for the user.
 - **Cannot be blank or null.**
@@ -166,7 +184,7 @@ Below is a sample configuration of `Pixiv.json` for downloading wallpapers.
 {
   "keyword": "abc",
   "tag_mode": null,
-  "order": "newest"s,
+  "order": "newest",
   "type": null,
   "tool": null,
   "ratio": null,

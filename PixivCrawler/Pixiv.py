@@ -7,7 +7,7 @@ import os
 
 class Pixiv:
   def __init__(self):
-    with open('Config/Pixiv.json', encoding = 'utf-8') as config:
+    with open('opts.json', encoding = 'utf-8') as config:
       self.config = json.load(config)
       # check fields that cannot be blank: keyword, email and password.
       # There is no check for inconsistent types.

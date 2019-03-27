@@ -1,14 +1,15 @@
-# Picture Crawler
+# Pixiv Tools
 
-Referred to from https://github.com/leniumC/pixiv-crawler.
+Refer to README.md in each tool for more details.
 
-Only pixiv is supported for now.
+## Resolution Check
 
-pip needed:
+Checks if the pictures are wallpaper-sized (16/9 or 16/10).
 
-- requests[socks]
-- beautifulsoup4
-- lxml
+## Open Links
 
-- python-dateutil
+Opens picture search results in the browser for manual inspection.
 
+## Pixiv Crawler
+
+Crawls pictures from the site. Supports a range of custom options, including premium-only options.
