@@ -14,7 +14,7 @@ pip required:
 
 ## Running
 
-```python
+```shell
 python3 resolution_check.py
 ```
 

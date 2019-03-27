@@ -8,7 +8,7 @@ None.
 
 ## Running
 
-```python
+```shell
 python3 open_links.py
 ```
 

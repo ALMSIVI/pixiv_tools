@@ -15,13 +15,16 @@ pip needed:
 
 ## Running
 
-```pyhon
+```shell
 python3 main.py
 ```
 
 ## opts.json
 
-The correspondence is stored in opts.json. Use `null` to ignore the option.
+The correspondence is stored in `config.json`. Use `null` to ignore the option.
+
+All the option-config correspondence is stored in `opts.json`.
+
 ##### keyword
 
 - Specifies the keyword.
@@ -177,7 +180,7 @@ The correspondence is stored in opts.json. Use `null` to ignore the option.
 
 
 
-Below is a sample configuration of `Pixiv.json` for downloading wallpapers.
+Below is a sample configuration of `config.json` for downloading wallpapers.
 
 
 ```json

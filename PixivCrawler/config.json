@@ -1,0 +1,25 @@
+{
+    "keyword": "abc",
+    "tag_mode": null,
+    "order": "newest",
+    "type": null,
+    "tool": null,
+    "ratio": null,
+    "min_width": 1920,
+    "max_width": 1920,
+    "min_height": 1080,
+    "max_height": 1080,
+    "mode": "safe",
+    "min_bookmark": 1000,
+    "max_bookmark": 4999,
+    "start_time": "1d",
+    "end_time": null,
+  
+    "start_page": 1,
+    "end_page": 2,
+  
+    "proxy": true,
+    "premium": true,
+    "email": "abc@def.ghi",
+    "password": "abcdefghi"
+  }
