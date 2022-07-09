@@ -1,19 +1,42 @@
-import json
-import webbrowser
 import datetime
+import json
+import re
+import webbrowser
+from urllib.parse import urlencode
+
+resolution_re = re.compile('(\d+)x(\d+)')
+
+def parse_resolution(resolution: str) -> tuple[int, int]:
+    match = resolution_re.match(resolution)
+    if match is None:
+        raise ValueError('Resolution is not valid')
+    
+    nums = match.groups()
+    return int(nums[0]), int(nums[1])
 
 if __name__ == '__main__':
-    with open('link_config.json', 'r+', encoding='utf-8') as f:
+    with open('link_config.json', 'rt', encoding='utf-8') as f:
         data = json.load(f)
-        for resolution in data['resolutions']:
-            res_nums = resolution.split('x')
-            width = int(res_nums[0])
-            height = int(res_nums[1])
-            o = data['offset']
-            url = f'https://www.pixiv.net/search.php?word={data["keyword"]}&order={data["order"]}&mode={data["mode"]}&wlt={width - o}&wgt={width + o}&hlt={height - o}&hgt={height + o}&scd={data["last_update"]}'
-            webbrowser.open(url)
+    
+    for resolution in data['resolutions']:
+        width, height = parse_resolution(resolution)
+        tag = data['keyword']
+        o = data['offset']
+        query = {
+            'order': data['order'],
+            'mode': data['mode'],
+            'wlt': width - o,
+            'wgt': width + o,
+            'hgt': height - o,
+            'hlt': height + o,
+            'scd': data['last_update']
+        }
 
-        data['last_update'] = str(datetime.date.today())
-        f.seek(0)  # reset file position to beginning
+        base_url = f'https://www.pixiv.net/en/tags/{tag}/artworks'
+        url = base_url + urlencode(query)
+        webbrowser.open(url)
+
+    data['last_update'] = str(datetime.date.today())
+
+    with open('link_config.json', 'wt', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
-        f.truncate()  # remove remaining part

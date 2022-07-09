@@ -1,8 +1,8 @@
 # Resolution Check
 
-Checks if the pictures are wallpaper-sized (16/9 or 16/10).
+Checks if the pictures are wallpaper-sized.
 
-- Resolutions are not absolute: for 16/9 (1.77778), the program accepts resolutions from 1.75 to 1.8. For 16/10 (1.6), the program accepts resolutions from 1.58 to 1.63.
+- A small tolerance in resolution proportion is allowed; change the `tolerance` in the file.
 
 - Pixiv supports only .jpg and .png pictures, so only these two are supported.
 
@@ -15,7 +15,7 @@ pip required:
 ## Running
 
 ```shell
-python3 resolution_check.py
+python3 resolution_check.py -d <dir> -r <resolution>
 ```
 
-Enter the directory, and resolution.
+The resolution should be formatted as `<number>/<number>`, for example, `16/9` or `3/2`.

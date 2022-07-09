@@ -1,10 +1,10 @@
-import os
 import re
 from csv import DictReader
 from argparse import ArgumentParser
+from pathlib import Path
 
-def rename(directory, filename):
-    with open(filename, 'rt') as csv:
+def rename(directory: Path, filename: Path):
+    with filename.open('rt') as csv:
         csv_reader = DictReader(csv)
         data = {}
         duplicates = set()
@@ -24,17 +24,16 @@ def rename(directory, filename):
                 data.pop(original_title, None)
                 duplicates.add(original_title)
 
-    try:
-        os.mkdir(os.path.join(directory, 'Marked'))
-    except:
-        # File already exists, skip
-        pass
+    marked = directory / 'Marked'
+    marked.mkdir(exist_ok=True)
 
-    images = [image for image in os.listdir(directory) if os.path.isfile(os.path.join(directory, image))]
-    for image in images:
+    for image in directory.iterdir():
+        if not image.is_file():
+            continue
+
         if image in data:
             # Rename
-            os.rename(os.path.join(directory, image), os.path.join(directory, 'Marked', data[image]))
+            image.replace(marked / data[image])
 
 
 if __name__ == '__main__':
@@ -42,4 +41,4 @@ if __name__ == '__main__':
     parser.add_argument('-d', '--directory', required=True ,help='Directory of image files.')
     parser.add_argument('-f', '--filename', required=True, help='Path to the csv data file.')
     args = parser.parse_args()
-    rename(args.directory, args.filename)
+    rename(Path(args.directory), Path(args.filename))

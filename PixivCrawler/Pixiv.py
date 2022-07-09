@@ -1,26 +1,26 @@
 import requests
 import json
 from bs4 import BeautifulSoup
+from pathlib import Path
 from ParamParser import *
 import time
-import os
 
 class Pixiv:
   def __init__(self):
-    with open('config.json', encoding = 'utf-8') as config:
+    with open('config.json', encoding='utf-8') as config:
       self.config = json.load(config)
       # check fields that cannot be blank: keyword, email and password.
       # There is no check for inconsistent types.
-      if self.config.get('email') == None or self.config.get('email') == '':
+      if not self.config.get('email'):
         self.err_callback('Email is not specified or is empty!')
-      if self.config.get('password') == None or self.config.get('password') == '':
+      if not self.config.get('password'):
         self.err_callback('Password is not specified or is empty!')
-      if self.config.get('keyword') == None or self.config.get('keyword') == '':
+      if not self.config.get('keyword'):
         self.err_callback('Keyword is not specified or is empty!')
 
-      self.se = requests.session()
+      self.session = requests.session()
       self.headers = {
-        'Referer': 'https://accounts.pixiv.net/login?lang=zh&source=pc&view_type=page&ref=wwwtop_accounts_index',
+        'Referer': 'https://accounts.pixiv.net/',
         'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36'
       }
       #proxy
@@ -39,12 +39,12 @@ class Pixiv:
     self.params = {}
 
   def login(self):
-    '''
+    """
     Login to pixiv in order to use advanced searching.
-    '''
-    base_url = 'https://accounts.pixiv.net/login?lang=zh&source=pc&view_type=page&ref=wwwtop_accounts_index'
-    login_url = 'https://accounts.pixiv.net/api/login?lang=zh'
-    post_key_html = self.se.get(base_url, headers = self.headers, proxies = self.proxies).text
+    """
+    base_url = 'https://accounts.pixiv.net/login'
+    login_url = 'https://accounts.pixiv.net/api/login'
+    post_key_html = self.session.get(base_url, headers = self.headers, proxies = self.proxies).text
     post_key_soup = BeautifulSoup(post_key_html, 'lxml')
     post_key = post_key_soup.find('input', {'name': 'post_key'})['value']
     data = {
@@ -52,12 +52,12 @@ class Pixiv:
         'password': self.config['password'],
         'post_key': post_key
     }
-    self.se.post(login_url, data = data, headers = self.headers, proxies = self.proxies)
+    self.session.post(login_url, data = data, headers = self.headers, proxies = self.proxies)
 
   def search(self):
-    '''
+    """
     Populates the params and performs the search.
-    '''
+    """
     premium = self.config.get('premium', False)
 
     self.params[self.opts['keyword']['query_key']] = self.config[self.opts['keyword']['config_key']] # keyword
@@ -95,7 +95,7 @@ class Pixiv:
       self.params['p'] = i
       self.headers['Referer'] = 'https://www.pixiv.net/'
       url ='https://www.pixiv.net/search.php'
-      html = self.se.get(url, headers = self.headers, params = self.params, timeout = 10, proxies = self.proxies)
+      html = self.session.get(url, headers = self.headers, params = self.params, timeout = 10, proxies = self.proxies)
 
       soup = BeautifulSoup(html.text, 'lxml')
       data_items = json.loads(soup.find('input', id = 'js-mount-point-search-result-list')['data-items'])
@@ -104,9 +104,9 @@ class Pixiv:
 
 
   def extract_work_info(self, data_items):
-    '''
+    """
     Extracts information from the json.
-    '''
+    """
     result = []
     count = 0
     for data_item in data_items:
@@ -152,11 +152,11 @@ class Pixiv:
       # try jpg first, then png
       img_src = 'https://i.pximg.net/img-original/img/' + work['url_info'] + '_p' + str(i) + '.jpg'
       try:
-        img = self.se.get(img_src, headers = self.headers, proxies = self.proxies).content
+        img = self.session.get(img_src, headers = self.headers, proxies = self.proxies).content
       except Exception:
         print('Download %s failed. Retrying...', img_filename)
         try:
-          img = self.se.get(img_src, headers = self.headers, proxies = self.proxies).content
+          img = self.session.get(img_src, headers = self.headers, proxies = self.proxies).content
         except Exception:
           print('Download %s failed. Skipping image.' % img_filename)
           time.sleep(3)
@@ -166,11 +166,11 @@ class Pixiv:
         if img.decode('UTF-8').find('404 Not'):
           img_src = img_src[:-3] + 'png'
           try:
-            img = self.se.get(img_src, headers = self.headers, proxies = self.proxies).content
+            img = self.session.get(img_src, headers = self.headers, proxies = self.proxies).content
           except:
             print('Download %s failed. Retrying...', img_filename)
             try:
-              img = self.se.get(img_src, headers = self.headers, proxies = self.proxies).content
+              img = self.session.get(img_src, headers = self.headers, proxies = self.proxies).content
             except:
               print('Download %s failed. Skipping image.' % img_filename)
               time.sleep(3)
