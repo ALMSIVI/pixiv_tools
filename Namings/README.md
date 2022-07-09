@@ -15,3 +15,7 @@ In these occasions, you will need to do a manual match. You may consider using [
 ---
 
 Once you have the ids in your filename, you can use `add_watermark.py` to add a watermark at the top left AND bottom left corner of the image. I did this because I am mainly using these scripts against my desktop background collection. In Windows, the taskbar is at the bottom, so I need watermarks at the top; in Mac, the taskbar is at the top, so I need watermarks at the bottom. The scripts accepts two arguments: `-i` for input directory, and `-o` for output directory. It will also attempt to change the creation/modified time of the newly created image to match the original image; for this, you need to install `win32_setctime` with pip. You can also use `change_time.py` to change the time of the file later on.
+
+---
+
+Finally, if you have 16:10 images for your old Macbooks but have now transitioned to a new notched Macbook pro, you can use `pad_image.py` to pad your images so that they will perfectly fit the screen.

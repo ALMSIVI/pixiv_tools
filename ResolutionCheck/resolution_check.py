@@ -3,7 +3,7 @@ from pathlib import Path
 from PIL import Image
 from argparse import ArgumentParser
 
-supported_formats = ['*.jpg', '*.png']
+supported_formats = ['.jpg', '.png']
 resolution_re = re.compile('(\d+)\/(\d+)')
 tolerance = 0.07
 

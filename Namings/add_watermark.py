@@ -3,7 +3,7 @@ from pathlib import Path
 from argparse import ArgumentParser
 from change_time import change_time
 
-def watermark_text(input_image_path: Path, output_image_path: Path, text):
+def watermark_text(input_image_path: Path, output_image_path: Path, text: str):
     im = Image.open(input_image_path)
     _, height = im.size
     # make the image editable
@@ -30,13 +30,12 @@ def watermark_text(input_image_path: Path, output_image_path: Path, text):
     im.save(output_image_path)
 
 
-supported_formats = ['*.jpg', '*.png']
+supported_formats = ['.jpg', '.png']
 
 if __name__ == '__main__':
     parser = ArgumentParser(description='Adds watermark to images.')
     parser.add_argument('-i', '--input', help='Input directory.')
     parser.add_argument('-o', '--output', help='Output directory.')
-    parser.add_argument()
     args = parser.parse_args()
 
     in_path = Path(args.input)
