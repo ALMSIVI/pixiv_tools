@@ -27,12 +27,12 @@ if __name__ == '__main__':
             'mode': data['mode'],
             'wlt': width - o,
             'wgt': width + o,
-            'hgt': height - o,
-            'hlt': height + o,
+            'hlt': height - o,
+            'hgt': height + o,
             'scd': data['last_update']
         }
 
-        base_url = f'https://www.pixiv.net/en/tags/{tag}/artworks'
+        base_url = f'https://www.pixiv.net/en/tags/{tag}/artworks?'
         url = base_url + urlencode(query)
         webbrowser.open(url)
 
