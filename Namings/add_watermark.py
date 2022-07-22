@@ -9,7 +9,7 @@ def watermark_text(input_image_path: Path, output_image_path: Path, text: str):
     # make the image editable
     draw = ImageDraw.Draw(im)
     font = ImageFont.truetype('arial.ttf', height // 50)
-    text_width, _ = draw.textsize(text, font)
+    text_width = draw.textlength(text, font)
 
     y = 0
     x = text_width + 10
