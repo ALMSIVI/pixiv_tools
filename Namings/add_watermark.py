@@ -3,34 +3,42 @@ from pathlib import Path
 from argparse import ArgumentParser
 from change_time import change_time
 
+
+spacing = 10
+supported_formats = ['.jpg', '.png']
+
+
+def draw_text(draw, start_x, y, text_width, text, font):
+    # Black
+    draw.text((start_x, y), text, fill=(0, 0, 0), font=font)
+    # White
+    draw.text((start_x + text_width + spacing, y), text, fill=(255, 255, 255), font=font)
+
+
 def watermark_text(input_image_path: Path, output_image_path: Path, text: str):
     im = Image.open(input_image_path)
-    _, height = im.size
+    width, height = im.size
     # make the image editable
     draw = ImageDraw.Draw(im)
     font = ImageFont.truetype('arial.ttf', height // 50)
     text_width = draw.textlength(text, font)
 
-    y = 0
-    x = text_width + 10
+    # Top left
+    draw_text(draw, 0, 0, text_width, text, font)
+    
+    # Top right
+    right_x = width - 2 * text_width - spacing
+    draw_text(draw, right_x, 0, text_width, text, font)
 
-    # Top
-    # Black
-    draw.text((0, y), text, fill=(0, 0, 0), font=font)
-    # White
-    draw.text((x, y), text, fill=(255, 255, 255), font=font)
+    # Bottom left
+    bottom_y = height - height // 50
+    draw_text(draw, 0, bottom_y, text_width, text, font)
 
-    # Bottom
-    y = height - height // 50
-    # Black
-    draw.text((0, y), text, fill=(0, 0, 0), font=font)
-    # White
-    draw.text((x, y), text, fill=(255, 255, 255), font=font)
+    # Bottom right
+    draw_text(draw, right_x, bottom_y, text_width, text, font)
 
     im.save(output_image_path)
 
-
-supported_formats = ['.jpg', '.png']
 
 if __name__ == '__main__':
     parser = ArgumentParser(description='Adds watermark to images.')
